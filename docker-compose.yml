@@ -1,0 +1,37 @@
+services:
+  hernandez_web:
+      image: ubuntu/apache2
+      container_name: apache_Practica_Apellido
+      ports:
+        - "80:80"
+      volumes:
+        - ./hernandez_website/website:/var/www/html
+        - ./hernandez_website/sites-available:/etc/apache2/sites-available
+        - ./hernandez_website/scripts:/scripts
+      restart: always
+      entrypoint: /scripts/HernandezScripts.sh
+  javi_web:
+      image: ubuntu/apache2
+      container_name: apache_Practica_Nombre
+      ports:
+        - "8080:80"
+      volumes:
+        - ./javi_website/website:/var/www/html
+        - ./javi_website/sites-available:/etc/apache2/sites-available
+        - ./javi_website/scripts:/scripts
+      restart: always
+      entrypoint: scripts/JaviScripts.sh
+  javiHernandez_web:
+      image: ubuntu/apache2
+      container_name: apache_Practica_ssl
+      ports:
+        - "6969:80"
+        - "443:443"
+      volumes:
+         - ./javiHernandez_website/website:/var/www/html
+         - ./javiHernandez_website/sites-available:/etc/apache2/sites-available
+         - ./javiHernandez_website/scripts:/scripts
+         - ./javiHernandez_website/htpasswd/.htpasswd:/etc/apache2/.htpasswd
+         - ./javiHernandez_website/certs:/etc/apache2/certs
+      restart: always
+      entrypoint: /scripts/JaviScripts.sh   
