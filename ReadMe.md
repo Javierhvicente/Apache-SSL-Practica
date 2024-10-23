@@ -20,6 +20,7 @@ La imagen de apache que usaremos (ubuntu/apache2), el nombre del contenedor.
 
 ### Sites-available
 En mi directorio sites-available tengo un fichero de configuración que crea un VirtualHost.
+
 ![archivo conf](images/conf_apellido.png)
 Primero le indico que puede ser cualquier puerto pero que lo redireccione al 80 ya que es el de Apache. A continuación le indico la ruta donde va a estar el html que he mapeado anteriormente (/var/www/html). Luego le indico el nombre del dominio que es **www.apellidos.com**. Por último le indico la ruta del html del error 404 en caso de que no se encuentre la web.
 ### Restart
@@ -27,7 +28,9 @@ Indica que Docker siempre intentará reiniciar el contenedor si se detiene por c
 
 ### EntryPoint
 Define el script que se ejecutará como el comando principal cuando el contenedor se inicie. En este caso, el script **HernandezScripts.sh** ubicado en **/scripts** se ejecutará cuando se inicie el contenedor. El uso de entrypoint es para que el contenedor realice tareas adicionales (como configuraciones específicas) al iniciar, antes de ejecutar Apache.
+
 ![scriptApellido](images/ScriptApellidopng.png)
+
 Este es el script que quiero que se ejecute. Lo primero que hace es el **a2ensite apellidos.conf**, esto habilita el archivo de configuración que hemos creado para que sea utilizado por Apache. 
 
 A continuación ejecuta el comando **service apache2 reload**, el cual recarga la configuración del servidor Apache sin detener el servicio. 
@@ -40,10 +43,14 @@ Para habilitar el nombre de dominio de nuestro archivo conf necesitamos añadirl
 
 ## Segundo dominio 
 Este segundo dominio funciona de la misma manera, lo único que cambia es que en vez de ser mis apellidos será mi nombre.
-En este caso el dominio es **nombre.com** y el puerto sera el **8080**.![segundaParteCompose](images/SegundoComposepng.png)
+En este caso el dominio es **nombre.com** y el puerto sera el **8080**.
+
+![segundaParteCompose](images/SegundoComposepng.png)
 
 ## Dominio con ssl
-Como en los anteriores dominios empezaremos explicando el docker-compose. ![composeTres](images/TercerCompose.png)
+Como en los anteriores dominios empezaremos explicando el docker-compose. 
+
+![composeTres](images/TercerCompose.png)
 Al igual que en los anteriores usaremos la imagen de **ubuntu/apache2**. 
 ### Puertos
 En este caso mapearemos el puerto 6969 de nuestra máquina al puerto 80 de Apache. Además, deberemos configurar el puerto de ssl, en este caso el 443 con el 433 de ssl.
@@ -65,6 +72,7 @@ Para crear un usuario y contraseña con el que poder acceder a nuestro dominio d
 
 ### Sites-available
 En este caso hemos creado un archivo de configuración el cual tiene dos virtual host, uno para el dominio y otro que lo redirecciona con SSL.
+
 ![confSSL](images/SSL_Conf.png)
 El primer virtual host crea el nombre de dominio el cual es **www.javierHernandez.net** el cual se encuentra en el puerto **6969:80** y lo redirecciona al virtualHost con SSL.
 
