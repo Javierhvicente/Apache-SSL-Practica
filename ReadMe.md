@@ -4,6 +4,7 @@ Para esta práctica queremos crear un servidor web de apache alojado en un conte
 
 ## Creación del primer dominio
 Para desplegar los diferentes servidores haremos uso de un archivo docker-compose el cual nos ayudará ha realizar la configuración del servidor.
+
 ![imagen primer fragmento docker-compose](images/code.png)
 Está sería la configuración del primer fragmento del docker-compose.
 ### hernandez_web
