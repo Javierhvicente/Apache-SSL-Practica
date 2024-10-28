@@ -1,0 +1,14 @@
+services:
+  web:
+    image: ubuntu/nginx
+    container_name: nginx_server
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./hernandez_website/website:/var/www/html
+      - ./hernandez_website/sites-available:/etc/nginx/sites-available
+      - ./hernandez_website/htpasswd/.htpasswd:/etc/nginx/.htpasswd
+      - ./hernandez_website/scripts:/docker-entrypoint.d/
+      - ./hernandez_website/certs:/etc/nginx/certs
+    restart: always
