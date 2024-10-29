@@ -1,0 +1,44 @@
+services:
+  hernandez_web:
+    image: ubuntu/apache2
+    container_name: apache_server
+    volumes:
+      - ./Apache/website:/var/www/html
+      - ./Apache/sites-available:/etc/apache2/sites-available
+      - ./Apache/htpasswd/.htpasswd:/etc/apache2/.htpasswd
+      - ./Apache/scripts:/scripts
+    restart: always
+    entrypoint: /scripts/HernandezScripts.sh
+    networks:
+      - webConect
+  webNombre:
+    image: ubuntu/nginx
+    container_name: nginx_server
+    volumes:
+      - ./Nginx/website:/var/www/html
+      - ./Nginx/sites-available:/etc/nginx/sites-available
+      - ./Nginx/scripts:/docker-entrypoint.d/
+    restart: always
+    networks:
+      - webConect
+  proxy:
+    image: ubuntu/nginx
+    container_name: proxy_server
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Proxy/website:/var/www/html
+      - ./Proxy/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./Proxy/certs:/etc/nginx/certs
+    restart: always
+    depends_on:
+      - hernandez_web
+      - webNombre
+    networks:
+      - webConect
+networks:
+  webConect:
+  
+    
+  
